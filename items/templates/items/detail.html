@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'items/detailview.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block title %}
+    Item Details
+{% endblock title %}
+
+{% block content %}
+<!-- Item Update Modal -->
+{% include 'items/item_modal.html' %}
+<!-- Photos Modal -->
+    <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content modal-nobg">
+                <div class="modal-body" id="report-modal">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                        <div class="carousel-inner">
+                            {% for i in object.get_images %}
+                                {% if i.image.url == object.get_main_image.url %}
+                                    <div class="carousel-item active">
+                                        <img src={{i.image.url}} class="d-block w-100">
+                                    </div>
+                                {% else %}
+                                    <div class="carousel-item">
+                                        <img src={{i.image.url}} class="d-block w-100">
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <!--span class="carousel-control-prev-icon" aria-hidden="true"></span-->
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <!--span class="carousel-control-next-icon" aria-hidden="true"></span-->
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    </div>
+                </div>
+            <!---div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div-->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="row">
+                <button class="btn-plain" id="open-gallery" data-bs-toggle="modal" data-bs-target="#imgModal">
+                    <img class="img-fluid" src={% if object.get_main_image %}{{object.get_main_image.url}}{% else %}"/media/no_picture.png"{% endif %}>
+                </button>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="row">
+                <h2>{{object.title}}</h2>
+            </div>
+            <div class="row">
+                <p>{{object.description}}</p>
+            </div>
+            <div class="row">
+                <div class="col col-3">
+                    <h5><b>Price: ${{object.price|floatformat:2}}</b></h5>
+                </div>
+                <div class="col col-5"></div>
+                {% if request.user == object.seller.user %}
+                    <div class="col col-2">
+                        <button class="btn btn-primary" id="edit-post" data-bs-toggle="modal" data-bs-target="#itemModal">Edit</button>
+                    </div>
+                    <div class="col col-2">
+                        <form action="{{ object.get_deletion_url }}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="col col-4">
+                        <form id="msg-form" method="POST">
+                            <button id="msg-prompt" class="btn btn-success">Message Seller</button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-3">
+            {% for img in object.get_images %}
+                <img class="img-thumbnail" src={{img.image.url}}>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <h4>Posted by 
+            {{object.seller.user.username}}
+        </h4>
+    </div>
+    <a href="/">Back to all items</a>
+{% endblock content %}
+
+

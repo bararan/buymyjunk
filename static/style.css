@@ -1,0 +1,37 @@
+.img-thumbnail {
+    height: 80px;
+    width: 80px;
+    border-radius: 5%;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.avatar-sm {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.modal-nobg {
+    background: none;
+    border: none;
+}
+
+.btn-plain {
+    outline: none;
+    background: none;
+    border: none;
+}
+
+.a-no-decoration {
+    text-decoration: none;
+    color: white;
+}
+
+.a-no-decoration:hover {
+    color: white;
+}
