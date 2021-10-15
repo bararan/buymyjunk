@@ -14,24 +14,27 @@ def all_profiles_view(req):
     return HttpResponse()
 
 def profile_view(req, pk):
-    profile =Profile.objects.get(id=int(pk))
-    is_own = req.user == profile.user
     profile_form = None
-    if is_own:
-        profile_form = ProfileEditForm(
-            req.POST or None,
-            req.FILES or None,
-            instance=profile
-        )
-        confirmed = profile_form.is_valid()
-        if confirmed:
-            profile_form.save()
-        else:
-            print('Errors:', profile_form.errors)
-            print('NF Errors:', profile_form.non_field_errors)
+    try:
+        profile =Profile.objects.get(id=int(pk))
+        is_own = req.user == profile.user
+        if is_own:
+            profile_form = ProfileEditForm(
+                req.POST or None,
+                req.FILES or None,
+                instance=profile
+            )
+            confirmed = profile_form.is_valid()
+            if confirmed:
+                profile_form.save()
+            else:
+                print('Errors:', profile_form.errors)
+                print(dir(profile_form.non_field_errors))
+    except Profile.DoesNotExist:
+        profile = None
     context = {
         'object':profile,
-        'is_own': is_own,
+        # 'is_own': is_own,
         'profile_form': profile_form,
     }
     return render(req, 'profiles/view.html', context)
