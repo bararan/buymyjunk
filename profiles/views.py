@@ -25,12 +25,13 @@ def profile_view(req, pk):
                 req.FILES or None,
                 instance=profile
             )
-            confirmed = profile_form.is_valid()
-            if confirmed:
-                profile_form.save()
-            else:
-                print('Errors:', profile_form.errors)
-                print(dir(profile_form.non_field_errors))
+            if req.method == 'POST':
+                confirmed = profile_form.is_valid()
+                if confirmed:
+                    profile_form.save()
+                else:
+                    print('Errors:', profile_form.errors)
+                    print('Non-field errors:', profile_form.non_field_errors)
     except Profile.DoesNotExist:
         # profile = None
         message = 'The requested profile could not be found.'
