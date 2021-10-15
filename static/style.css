@@ -29,9 +29,13 @@
 
 .a-no-decoration {
     text-decoration: none;
-    color: white;
+    color: inherit !important;
 }
 
 .a-no-decoration:hover {
-    color: white;
+    color: inherit;
+}
+
+.lighten-hover:hover {
+    opacity: 0.6 !important;
 }
