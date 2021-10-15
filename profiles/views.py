@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
+from django.contrib import messages
 from .models import Profile
 from .forms import ProfileEditForm
 # Create your views here.
@@ -31,7 +32,10 @@ def profile_view(req, pk):
                 print('Errors:', profile_form.errors)
                 print(dir(profile_form.non_field_errors))
     except Profile.DoesNotExist:
-        profile = None
+        # profile = None
+        message = 'The requested profile could not be found.'
+        messages.add_message(req, messages.WARNING, message)
+        return HttpResponseRedirect('/')
     context = {
         'object':profile,
         # 'is_own': is_own,
