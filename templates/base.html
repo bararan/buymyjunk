@@ -28,13 +28,11 @@
   </head>
   <body>
     {% include 'navbar.html' %}
-    {% if messages %}
-      {% for msg in messages %}
-        <div class="alert alert-{{msg.level_tag}}" role="alert">
-            {{msg.message}}
-        </div>
-      {% endfor %}
-    {% endif %}
+    {% for msg in messages %}
+      <div class="text-center alert alert-{{msg.level_tag}}" role="alert">
+          {{msg.message}}
+      </div>
+    {% endfor %}
     <div class="container mt-3 mb-3">
         {% block content %}
         {% endblock content %}
