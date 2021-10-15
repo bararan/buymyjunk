@@ -11,13 +11,6 @@
 {% endblock scripts %}
 
 {% block content %}
-    {% if messages %}
-        {% for msg in messages %}
-            <div class="alert alert-{{msg.level_tag}}" role="alert">
-                {{msg.message}}
-            </div>
-        {% endfor %}
-    {% endif %}
     <!-- Modal -->
         {% include 'items/item_modal.html' %}
     <h4>Items for Sale</h4>
