@@ -89,7 +89,6 @@ def all_items_view(req):
     return render(req, 'items/main.html', context)
 
 def delete_item_view(req, pk):
-    print(req)
     if req.method=='POST':
         itm = Item.objects.filter(id=pk)
         title = itm[0].title
