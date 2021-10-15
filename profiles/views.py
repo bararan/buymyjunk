@@ -29,6 +29,7 @@ def profile_view(req, pk):
                 confirmed = profile_form.is_valid()
                 if confirmed:
                     profile_form.save()
+                    messages.add_message(req, messages.SUCCESS, 'You have updated your profile.')
                 else:
                     print('Errors:', profile_form.errors)
                     print('Non-field errors:', profile_form.non_field_errors)
