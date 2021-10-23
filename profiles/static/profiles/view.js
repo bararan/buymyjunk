@@ -6,9 +6,10 @@ const imgUpload = document.getElementById("image-input")
 const currentAvatar = document.getElementById("current-avatar")
 const modal = document.getElementById("profileEditModal")
 
-imgUpload.onchange = function() {
-    currentAvatar.src = imgUpload.value
-}
+imgUpload.addEventListener('change', (e)=> {
+    currentAvatar.src = URL.createObjectURL(imgUpload.files[0])
+})
+
 
 // profileForm.addEventListener('submit', (e) => {
 //         e.preventDefault()

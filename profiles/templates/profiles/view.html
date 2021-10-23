@@ -3,10 +3,11 @@
 {% load crispy_forms_tags %}
 {% block title %}
     Profile Page
-    {% block scripts %}
-        {% comment %} <script src="{% static 'profiles/view.js' %}" defer></script> {% endcomment %}
-    {% endblock scripts %}
 {% endblock title %}
+
+{% block scripts %}
+    <script src="{% static 'profiles/view.js' %}" defer></script>
+{% endblock scripts %}
 
 {% block content %}
     {% if profile_form %}
