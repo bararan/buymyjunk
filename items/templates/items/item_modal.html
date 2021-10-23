@@ -10,7 +10,7 @@
             <div class="modal-body" id="report-modal">
                 <div id="result-box"></div>
                     {% comment %} <img src="data:image/png;base64, {{chart|safe}}" class="w-100" id="graph"> <!-- w-100 here scales the img to 100% width of parent element -->     {% endcomment %}
-                    <form id="profile-form" action="" method="POST" enctype="multipart/form-data">
+                    <form id="item-form" action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{item_form|crispy}}
                         {{image_form|crispy}}

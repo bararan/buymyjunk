@@ -3,6 +3,10 @@
     justify-content: center;
 }
 
+.hidden {
+    display: none;
+}
+
 .img-thumbnail {
     height: 80px;
     width: 80px;
