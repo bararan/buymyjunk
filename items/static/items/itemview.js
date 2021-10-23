@@ -2,21 +2,17 @@ const imageForms = document.getElementsByClassName('multiField')
 const uploadFields = document.getElementsByClassName('clearablefileinput')
 
 window.onload = (e) => {
-    console.log('loaded')
     last = 0
     while (true) {
         let imgField = imageForms[last]
         last++
         if (imgField.querySelectorAll('a').length == 0) {
-            console.log('Will hide as of ' + last)
             break
         }
     }   
     for(i=last;i<imageForms.length;i++) {
-        console.log('Now hiding ' + i)
         imgField = imageForms[i]
         imgField.classList.add('hidden')
-        // hiddenFields.push(imgField)
     }
     uploadFields.forEach((field, index) => {
         if (index< imageForms.length-1) {
@@ -26,7 +22,6 @@ window.onload = (e) => {
             })
         }
     })
-        // uploadField = document.getElementById("id_form-"+i+"-image")
 }
 
 $('input:checkbox').on('change', function() {
