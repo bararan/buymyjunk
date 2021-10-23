@@ -18,9 +18,9 @@
         <li class="nav-item">
           <a class="nav-link {% if path_to_items in request.path|truncatechars:8 %}active{% endif %}" href="{{path_to_items}}">Browse Items</a>
         </li>
-        <li class="nav-item">
+        <!--li class="nav-item">
           <a class="nav-link {% if request.path == path_to_upload %}active{% endif %}" href="{{path_to_upload}}">Post an Item</a>
-        </li>
+        </li-->
         <li class="nav-item">
           <a class="nav-link {% if path_to_reports in request.path|truncatechars:10 and request.path != path_to_upload %}active{% endif %}" href="{{path_to_reports}}">Messages</a>
         </li>
