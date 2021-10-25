@@ -29,7 +29,11 @@
   <body>
     {% include 'navbar.html' %}
     {% for msg in messages %}
+    {% if msg.level_tag == 'error' %}
+      <div class="text-center alert alert-danger" role="alert">
+    {% else %}
       <div class="text-center alert alert-{{msg.level_tag}}" role="alert">
+    {% endif %}
           {{msg.message}}
       </div>
     {% endfor %}

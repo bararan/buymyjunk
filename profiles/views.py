@@ -3,17 +3,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Profile
 from .forms import ProfileEditForm
 # Create your views here.
 
 # TODO: Below is a placeholder. Either replace or remove!
+@login_required
 def all_profiles_view(req):
     profiles = Profile.objects.all()
     for p in profiles:
         print(p.id, p)
     return HttpResponse()
 
+@login_required
 def profile_view(req, pk):
     profile_form = None
     try:
