@@ -57,8 +57,7 @@ def item_detail_view(req, pk):
 
 def all_items_view(req):
     object_list = Item.objects.all()
-    # print(req.FILES)
-    seller = get_object_or_404(Profile, user=req.user)
+    seller = None
     item_form = PostItem(
         req.POST or None,
         req.FILES or None
@@ -74,6 +73,7 @@ def all_items_view(req):
         'image_form': image_form
     }
     if req.method == 'POST':
+        seller = get_object_or_404(Profile, user=req.user)
         if item_form.is_valid():
             item = item_form.save(commit=False)
             item.seller = seller
