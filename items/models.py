@@ -66,5 +66,4 @@ class Image(models.Model):
     #     self.save(*args, **kwargs) # Do we need args&kwargs here??
 
     def __str__(self):
-        # return str(self.image)
         return f"Main image for {self.item.title}" if self.is_main else f"Image for {self.item.title}."
