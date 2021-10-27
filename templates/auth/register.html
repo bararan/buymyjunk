@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Log in to Start Selling 
+    Create an account
 {% endblock title %}
 
 {% block content %}
@@ -11,11 +11,11 @@
             <form action="" method="POST" class="p-3 border border-2"> <!-- p-3 is padding-->
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-primary mt-3">Log in</button>
+                <button type="submit" class="btn btn-primary mt-3">Register</button>
             </form>
         </div>
         <div class="row">
-            <h5>Don't have an account yet? Create one <a href="/register">here</a></h5>
+            <h5>Already have an account? <a href="/login">Go to Login page.</a></h5>
         </div>
     </div>
 {% endblock content %}

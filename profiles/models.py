@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from address.models import AddressField
+from django.shortcuts import reverse
 
 
 # Create your models here.
@@ -15,6 +16,9 @@ class Profile(models.Model):
     def get_items_for_sale(self):
         from items.models import Item
         return Item.objects.filter(seller = self)
+
+    def get_absolute_url(self):
+        return reverse("profiles:profile", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.user.username}'s profile"

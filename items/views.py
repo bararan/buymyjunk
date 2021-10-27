@@ -57,7 +57,10 @@ def item_detail_view(req, pk):
 
 def all_items_view(req):
     object_list = Item.objects.all()
-    seller = None
+    if req.user.is_anonymous:
+        seller = None
+    else:
+        seller = get_object_or_404(Profile, user=req.user)
     item_form = PostItem(
         req.POST or None,
         req.FILES or None
@@ -70,10 +73,10 @@ def all_items_view(req):
     context = {
         'object_list': object_list,
         'item_form': item_form,
-        'image_form': image_form
+        'image_form': image_form,
+        'seller': seller
     }
     if req.method == 'POST':
-        seller = get_object_or_404(Profile, user=req.user)
         if item_form.is_valid():
             item = item_form.save(commit=False)
             item.seller = seller

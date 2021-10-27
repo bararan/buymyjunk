@@ -36,6 +36,21 @@
     {% endfor %}
     {% if seller %}
         <button class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#itemModal">Post Item for Sale</button>
+    {% else %}
+        <div class="row  mt-3 mb-3">
+            To start buying and selling either 
+            <div class="col-1">
+                <form action="/login">
+                    <button class="btn btn-secondary" type="submit">Log In</button>
+                </form>
+            </div>
+             or 
+            <div class="col-1">
+                <form action="/register">
+                    <button class="btn btn-dark" type="submit">Register</button>
+                </form>
+            </div>
+        </div>
     {% endif %}
 {% endblock content %}
 
