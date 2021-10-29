@@ -24,8 +24,8 @@ window.onload = (e) => {
     })
 }
 
-$('input:checkbox').on('change', function() {
-    $('input:checkbox').not(this).prop('checked', false);
+$('.checkboxinput').on('change', function() {
+    $('.checkboxinput').not(this).prop('checked', false);
  });
 
  $(document).on('click', '.confirm-delete', ()=> {
@@ -36,5 +36,3 @@ $('input:checkbox').on('change', function() {
  function unhideNext(i) {
      imageForms[i+1].classList.remove('hidden')
  }
- 
- 

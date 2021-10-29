@@ -36,6 +36,10 @@ def item_detail_view(req, pk):
             redir = True
             item_form.save()
         if image_form.is_valid():
+            for img in item.get_images():
+                if str(img.id) in req.POST:
+                    assert req.POST.get(str(img.id)) == 'on'
+                    img.delete()
             redir = True
             imgs = image_form.save(commit=False)
             for img in imgs:
