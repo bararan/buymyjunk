@@ -3,7 +3,7 @@
 {% url 'reports:main' as path_to_reports %}
 {% url 'reports:from-file' as path_to_upload %}
 {% url 'items:list' as path_to_items %}
-{% url 'profiles:profile' request.user.id as path_to_own_profile %}
+{% url 'profiles:profile' request.user.profile.id as path_to_own_profile %}
 {% url 'logout' as path_to_logout %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
