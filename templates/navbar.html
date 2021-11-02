@@ -1,7 +1,7 @@
 {% load static %}
 {% url 'items:list' as path_to_home %}
 {% url 'reports:main' as path_to_reports %}
-{% url 'reports:from-file' as path_to_upload %}
+{% url 'messaging:messagebox' as path_to_messagebox %}
 {% url 'items:list' as path_to_items %}
 {% url 'profiles:profile' request.user.profile.id as path_to_own_profile %}
 {% url 'logout' as path_to_logout %}
@@ -22,7 +22,7 @@
           <a class="nav-link {% if request.path == path_to_upload %}active{% endif %}" href="{{path_to_upload}}">Post an Item</a>
         </li-->
         <li class="nav-item">
-          <a class="nav-link {% if path_to_reports in request.path|truncatechars:10 and request.path != path_to_upload %}active{% endif %}" href="{{path_to_reports}}">Messages</a>
+          <a class="nav-link {% if request.path == path_to_messagebox %}active{% endif %}" href="{{path_to_messagebox}}">Messages</a>
         </li>
       </ul>
     </div>

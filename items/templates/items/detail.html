@@ -11,7 +11,11 @@
 
 {% block content %}
 <!-- Item Update Modal -->
-{% include 'items/item_modal.html' %}
+{% if is_own_item %}
+    {% include 'items/item_modal.html' %}
+{% else %}
+    {% include 'items/message_modal.html' %}
+{% endif %}
 <!-- Photos Modal -->
     <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -68,7 +72,7 @@
                     <h5><b>Price: ${{object.price|floatformat:2}}</b></h5>
                 </div>
                 <div class="col col-5"></div>
-                {% if request.user == object.seller.user %}
+                {% if is_own_item %}
                     <div class="col col-2">
                         <button class="btn btn-primary" id="edit-post" data-bs-toggle="modal" data-bs-target="#itemModal">Edit</button>
                     </div>
@@ -80,9 +84,7 @@
                     </div>
                 {% else %}
                     <div class="col col-4">
-                        <form id="msg-form" method="POST">
-                            <button id="msg-prompt" class="btn btn-success">Message Seller</button>
-                        </form>
+                        <button id="msg-prompt" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#messageModal">Message Seller</button>
                     </div>
                 {% endif %}
             </div>

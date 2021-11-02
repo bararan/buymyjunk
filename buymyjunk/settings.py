@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Created by me
     'items',
     'profiles',
+    'messaging',
     # Django add-ons
     'address',
     'directmessages',
