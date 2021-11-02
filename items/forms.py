@@ -1,7 +1,6 @@
 from django import forms
 from .models import Item, Image
 from django.utils.safestring import mark_safe
-
 class PostItem(forms.ModelForm):
     class Meta:
         model = Item
@@ -37,5 +36,3 @@ ImageFormSet = forms.modelformset_factory(
     extra=6, 
     max_num=6
     )
-''' TODO: Make it possible to delete images in this form.
-'''
