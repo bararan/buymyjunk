@@ -48,8 +48,9 @@ INSTALLED_APPS = [
     'messaging',
     # Django add-ons
     'address',
-    'directmessages',
+    # 'pinax.messages',
     'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -77,6 +78,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # other processors
+                # 'pinax.messages.context_processors.user_messages',
+
             ],
         },
     },
