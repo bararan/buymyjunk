@@ -3,11 +3,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from .models import Item, Image
+from messaging.models import Thread
 from .forms import PostItem, ImageFormSet
 from messaging.forms import MessageForm
 from profiles.models import Profile
 from django.db.utils import IntegrityError
-from directmessages.apps import Inbox
 
 # Create your views here.
 
@@ -60,20 +60,29 @@ def item_detail_view(req, pk):
                 image_form = ImageFormSet()
                 return HttpResponseRedirect(str(pk))
     else:
-        message_form = MessageForm()
+        message_form = MessageForm(
+            data = req.POST or None,
+            initial={
+            "subject": f"Inquiry about {item.title}"
+            })
         if req.method == 'POST':
-            form_data = {'content': req.POST['content']}
-            message_form = MessageForm(form_data)
             if message_form.is_valid():
-                message_form.save(from_user, to_user)
+                message = message_form.save(commit=False)
+                thread = Thread()
+                thread.save()
+                message.sender = req.user
+                message.recipient = item.seller.user
+                message.thread = thread
+                message.save()
+                messages.add_message(req, messages.SUCCESS, 'Your message has been sent.')
+            else:
+                messages.add_message(req, messages.ERROR, "Your message could not be sent. Please try again.")               
     context = {
         'object': item,
         'item_form': item_form,
         'message_form': message_form,
         'image_form': image_form,
         'is_own_item': is_own_item,
-        'from_user': from_user,
-        'to_user': to_user,
     }
     return render(req, 'items/detail.html', context)
 

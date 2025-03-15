@@ -1,9 +1,10 @@
-
-from directmessages.models import Message
-from directmessages.apps import Inbox
 from django import forms
+from .models import Message
 
-class MessageForm(forms.Form):
-    content = forms.CharField(label='Type your message below.', widget=forms.Textarea())
-    def save(self, sender, recipient):
-        Inbox.send_message(sender, recipient, self.cleaned_data['content'])
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        exclude = ('thread', 'sender', 'recipient')
+
+    def print_data(self):
+        print(self.cleaned_data)
