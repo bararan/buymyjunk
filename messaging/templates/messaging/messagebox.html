@@ -4,8 +4,59 @@
     Message Box
 {% endblock title %}
 
+
 {% block content %}
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <h1>Inbox</h1>
+    {% if not inbox %}
+        <p>Your inbox is empty.</p>
+    {% else %}
+        {% for msg in inbox %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-out-{{forloop.counter}}" aria-expanded="false" aria-controls="flush-collapse-out-{{forloop.counter}}">
+                        Message from {{msg.recipient}} sent {{msg.sent_at|timesince}} ago.
+                    </button>
+                </h2>
+                <div id="flush-collapse-out-{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row"><b>{{ msg.subject }}</b></div>
+                        <div class="row">{{msg.content}}</div>
+                        <div class="row">
+                            <button class="btn btn-primary col-1">Reply</button>
+                            <form method="POST" class="col-1">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <h1>Outbox</h1>
+    {% for msg in outbox %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-out-{{forloop.counter}}" aria-expanded="false" aria-controls="flush-collapse-out-{{forloop.counter}}">
+                    Message to {{msg.recipient}} sent {{msg.sent_at|timesince}} ago.
+                </button>
+            </h2>
+            <div id="flush-collapse-out-{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row"><b>{{ msg.subject }}</b></div>
+                    <div class="row">{{msg.content}}</div>
+                    <div class="row">
+                        <button class="btn btn-primary col-1">Reply</button>
+                        <form method="POST" class="col-1">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <!--ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Inbox</button>
         </li>
@@ -18,17 +69,58 @@
             {% if not inbox %}
                 <h4>You have no incoming messages</h4>
             {% endif %}
+            <div class="accordion accordion-flush" id="outbox-messages">
+                {% for msg in inbox %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-out-{{forloop.counter}}" aria-expanded="false" aria-controls="flush-collapse-out-{{forloop.counter}}">
+                                Message from {{msg.sender}} sent {{msg.sent_at|timesince}} ago.
+                            </button>
+                        </h2>
+                        <div id="flush-collapse-out-{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <div class="row">{{msg.content}}</div>
+                                <div class="row col-md-3">
+                                    <button class="btn btn-primary col-2">Reply</button>
+                                    <form method="POST" class="col-2">
+                                        {% csrf_token %}
+                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             {% if not outbox %}
                 <h4>You have no outgoing messages</h4>
             {% endif %}
-            {% for msg in outbox %}
-                <p>{{msg.content|truncatechars:20}} sent to {{msg.recipient}}, <b>{{msg.sent_at|timesince}} ago.</b></p>
-            {% endfor %}
+            <div class="accordion accordion-flush" id="outbox-messages">
+                {% for msg in outbox %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-out-{{forloop.counter}}" aria-expanded="false" aria-controls="flush-collapse-out-{{forloop.counter}}">
+                                Message to {{msg.recipient}} sent {{msg.sent_at|timesince}} ago.
+                            </button>
+                        </h2>
+                        <div id="flush-collapse-out-{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <div class="row">{{msg.content}}</div>
+                                <div class="row">
+                                    <button class="btn btn-primary col-1">Reply</button>
+                                    <form method="POST" class="col-1">
+                                        {% csrf_token %}
+                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
+    </-->
 {% endblock content %}
-    
-
 
