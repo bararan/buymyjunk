@@ -69,6 +69,7 @@ def item_detail_view(req, pk):
             if message_form.is_valid():
                 message = message_form.save(commit=False)
                 thread = Thread()
+                thread.subject  = message.subject
                 thread.save()
                 message.sender = req.user
                 message.recipient = item.seller.user
