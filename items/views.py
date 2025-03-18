@@ -68,12 +68,14 @@ def item_detail_view(req, pk):
         if req.method == 'POST':
             if message_form.is_valid():
                 message = message_form.save(commit=False)
-                thread = Thread()
-                thread.subject  = message.subject
-                thread.save()
+                # thread = Thread()
+                # thread.subject  = message.subject
+                # thread.users.add(req.user)
+                # thread.users
+                # thread.save()
                 message.sender = req.user
                 message.recipient = item.seller.user
-                message.thread = thread
+                # message.thread = thread
                 message.save()
                 messages.add_message(req, messages.SUCCESS, 'Your message has been sent.')
             else:
