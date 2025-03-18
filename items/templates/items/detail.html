@@ -14,7 +14,7 @@
 {% if is_own_item %}
     {% include 'items/item_modal.html' %}
 {% else %}
-    {% include 'items/message_modal.html' %}
+    {% include 'messaging/message_modal.html' %}
 {% endif %}
 <!-- Photos Modal -->
     <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
@@ -27,21 +27,21 @@
                                 {% if i.image.url == object.get_main_image.url %}
                                     <div class="carousel-item active">
                                         <img src={{i.image.url}} class="d-block w-100">
+                                        {% comment %} <h3>{{ i.image.url }}</h3> {% endcomment %}
                                     </div>
                                 {% else %}
                                     <div class="carousel-item">
                                         <img src={{i.image.url}} class="d-block w-100">
+                                        {% comment %} <h3>{{ i.image.url }}</h3> {% endcomment %}
                                     </div>
                                 {% endif %}
                             {% endfor %}
                         </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                        <!--span class="carousel-control-prev-icon" aria-hidden="true"></span-->
-                        <span>Previous</span>
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                        <!--span class="carousel-control-next-icon" aria-hidden="true"></span-->
-                        <span>Next</span>
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </button>
                     </div>
                 </div>
