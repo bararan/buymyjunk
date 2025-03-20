@@ -9,16 +9,16 @@ class Thread(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     users = models.ManyToManyField(User, related_name='threads', related_query_name='thread')
 
+    @property
     def get_users(self):
-        return self.users.all()
+        return list(self.users.all())
 
     def __str__(self):
-        parties = self.get_users()
-        return f'Conversation between users {parties[0]} and {parties[1]}'
+        parties = self.get_users
+        return f"Conversation between users {' and '.join([p.username for p in parties])}"
 
 
-# TODO: Should the thread also have an 'unread' indicator?
-# TODO: Thread's read/unread status should depend on who receives the message. Pay attention!
+# TODO: Should I move subject to Thread?
 class Message(models.Model):
     sender =models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='sender')
     recipient = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='recipient')
