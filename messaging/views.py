@@ -10,13 +10,15 @@ from .models import Message, Thread
 @login_required
 def messagebox_view(req):
     user = req.user
-    inbox = Message.objects.filter(recipient=user).all() # TODO: Does this work?? if not try User.
+    # inbox = Message.objects.filter(recipient=user).all() # TODO: Does this work?? if not try User.
+    inbox = Thread.objects.filter(users__in=[user]).all()
     for c in inbox:
         print(c)
-    outbox = Message.objects.all().filter(sender=user)
+    # outbox = Message.objects.all().filter(sender=user)
     context = {
+        'username': user.username,
         'inbox': inbox,
-        'outbox': outbox,
+        # 'outbox': outbox,
     }
     return render(req, 'messaging/messagebox.html', context)
     # TODO: Change this view to accommodate Thread model. In list view all threads should be collapsed with subject and usernames visible.
