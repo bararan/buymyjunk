@@ -63,7 +63,7 @@ def item_detail_view(req, pk):
         message_form = MessageForm(
             data = req.POST or None,
             initial={
-            "subject": f"Inquiry about {item.title}"
+            "subject_field": f"Inquiry about {item.title}"
             })
         if req.method == 'POST':
             if message_form.is_valid():
@@ -76,7 +76,7 @@ def item_detail_view(req, pk):
                 message.sender = req.user
                 message.recipient = item.seller.user
                 # message.thread = thread
-                message.save()
+                message.save(subject=req.POST['subject_field'])
                 messages.add_message(req, messages.SUCCESS, 'Your message has been sent.')
             else:
                 messages.add_message(req, messages.ERROR, "Your message could not be sent. Please try again.")               
