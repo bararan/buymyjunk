@@ -29,13 +29,13 @@ class Message(models.Model):
     sent_at = models.DateTimeField(auto_now_add=True)
     # readable_by = models.ManyToManyField(User) # This should 
     # TODO: Think about what should happen when the foreign keys are deleted!
-    def save(self, thread=None, subject=None):
-        if thread is None:
-            thread = Thread.objects.create(subject=subject)
-            thread.users.add(self.sender, self.recipient)
-            thread.save()
-        self.thread = thread
-        super().save()
+    # def save(self, thread=None, subject=None):
+    #     if thread is None:
+    #         thread = Thread.objects.create(subject=subject)
+    #         thread.users.add(self.sender, self.recipient)
+    #         thread.save()
+    #     self.thread = thread
+    #     super().save()
 
     def mark_as_read(self):
         self.unread = False

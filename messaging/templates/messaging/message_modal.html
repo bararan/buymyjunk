@@ -11,6 +11,7 @@
                 <div id="result-box"></div>
                     <form id="message-form" action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
+                        {{thread_form|crispy}}
                         {{message_form|crispy}}
                         <button type="submit" class="btn btn-info mt-2">Send</button>
                     </form>
