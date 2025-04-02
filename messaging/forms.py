@@ -2,10 +2,10 @@ from django import forms
 from .models import Message, Thread
 
 class MessageForm(forms.ModelForm):
-    # subject_field = forms.CharField(max_length=120)
     class Meta:
         model = Message
-        exclude = ('thread', 'sender', 'recipient')
+        # exclude = ('thread', 'sender', 'recipient')
+        fields = ('content',)
 
     def print_data(self):
         print(self.cleaned_data)

@@ -4,30 +4,35 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from .models import Message, Thread
+from .forms import MessageForm
+from django.forms import inlineformset_factory
 
 # Create your views here.
 
 @login_required
 def messagebox_view(req):
     user = req.user
-    # inbox = Message.objects.filter(recipient=user).all() # TODO: Does this work?? if not try User.
     inbox = Thread.objects.filter(users__in=[user]).all()
-    for c in inbox:
-        print(c)
-    # outbox = Message.objects.all().filter(sender=user)
+    ReplyFormSet = inlineformset_factory(Thread, Message, form=MessageForm, extra=len(inbox))
+    threads_w_forms = []
+    for thread in inbox:
+        threads_w_forms.append([thread, ReplyFormSet(req.POST,instance=thread)])
+# TODO: The validation below is not correct. Think how to do it properly.
+    if req.method == 'POST':
+        if reply_form.is_valid():
+            reply.thread = thread
+            reply = reply_form.save()
     context = {
         'username': user.username,
-        'inbox': inbox,
-        # 'outbox': outbox,
+        'inbox': threads_w_forms,
+        # 'reply_forms': reply_forms,
     }
     return render(req, 'messaging/messagebox.html', context)
-    # TODO: Change this view to accommodate Thread model. In list view all threads should be collapsed with subject and usernames visible.
-    #       Once the thread is expanded individual messages should become visible.
 
 
-class MsgBoxView(ListView, LoginRequiredMixin):
-    template_name = 'messaging/messagebox.html'
-    model = Message
+# class MsgBoxView(ListView, LoginRequiredMixin):
+#     template_name = 'messaging/messagebox.html'
+#     model = Message
 
 # def message_box_view(req):
 #     return render(req, 'messaging/messagebox.html')
