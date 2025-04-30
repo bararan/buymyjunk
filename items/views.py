@@ -26,6 +26,7 @@ def item_detail_view(req, pk):
     is_own_item = from_user == to_user 
     item_form, image_form, message_form = None, None, None
     if is_own_item:
+        thread_form = None
         item_form = PostItem(
             req.POST or None,
             req.FILES or None,
