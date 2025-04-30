@@ -1,9 +1,9 @@
 asgiref==3.7.2
-crispy-bootstrap4==2023.1
+crispy-bootstrap5==2025.4
 Django==4.2.9
 django-address==0.2.8
 django-appconf==1.0.6
-django-crispy-forms==2.1
+django-crispy-forms==2.4
 django-google-maps==0.13.0
 django-user-accounts==3.3.2
 pillow==10.2.0
