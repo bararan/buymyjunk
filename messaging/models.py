@@ -14,6 +14,10 @@ class Thread(models.Model):
     def get_users(self):
         return list(self.users.all())
 
+    @property
+    def messages(self):
+        return Message.objects.filter(thread=self)
+
     def __str__(self):
         parties = self.get_users
         return f"Conversation between users {' and '.join([p.username for p in parties])}"
